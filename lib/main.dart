@@ -18,8 +18,19 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: BottomBar(),
+    return MaterialApp(
+      title: 'CRUD App with Firebase',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        primaryColor: Colors.black,
+        scaffoldBackgroundColor: Colors.grey[850],
+        colorScheme: ColorScheme.dark(
+          primary: Colors.grey[700]!,
+          secondary: Colors.grey[600]!,
+        ),
+        //make the app feel dark and gloomy
+      ),
+      home: const BottomBar(),
     );
   }
 }

@@ -50,6 +50,7 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text('Search User Data'),
       ),
@@ -58,8 +59,8 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
         children: [
           const Center(
             child: Text(
-              'Type the name to search the User',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              'Enter name of the user',
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
           ),
           Padding(
@@ -84,7 +85,7 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
                 disabledForegroundColor: Colors.grey.withOpacity(0.38),
                 minimumSize: const Size(88, 36),
               ),
-              child: const Text('Submit'),
+              child: const Text('Search'),
             ),
           ),
           const SizedBox(height: 20),

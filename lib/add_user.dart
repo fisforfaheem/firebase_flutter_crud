@@ -53,42 +53,66 @@ class _AddUserState extends State<AddUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: const Text('Firebase App'),
+        title: const Text('Add User Data'),
       ),
       body: Form(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Text(
+                'Enter User Details',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               TextField(
                 controller: _firstNameController,
                 decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
                   labelText: 'First Name',
                 ),
+              ),
+              const SizedBox(
+                height: 20,
               ),
               TextField(
                 controller: _lastNameController,
                 decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
                   labelText: 'Last Name',
                 ),
+              ),
+              const SizedBox(
+                height: 20,
               ),
               TextField(
                 controller: _ageController,
                 decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
                   labelText: 'Age',
                 ),
               ),
               const SizedBox(
                 height: 20,
               ),
-              ElevatedButton(
+              TextButton(
                 onPressed: () {
                   FocusScope.of(context).unfocus();
                   uploadData();
                 },
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blue,
+                  disabledForegroundColor: Colors.grey.withOpacity(0.38),
+                  minimumSize: const Size(88, 36),
+                ),
                 child: const Text('Submit'),
-              ),
+              )
             ],
           ),
         ),
