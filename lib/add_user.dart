@@ -60,60 +60,64 @@ class _AddUserState extends State<AddUser> {
       body: Form(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Enter User Details',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TextField(
-                controller: _firstNameController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'First Name',
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 170,
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TextField(
-                controller: _lastNameController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Last Name',
+                const Text(
+                  'Enter User Details',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TextField(
-                controller: _ageController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Age',
+                const SizedBox(
+                  height: 20,
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TextButton(
-                onPressed: () {
-                  FocusScope.of(context).unfocus();
-                  uploadData();
-                },
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.blue,
-                  disabledForegroundColor: Colors.grey.withOpacity(0.38),
-                  minimumSize: const Size(88, 36),
+                TextField(
+                  controller: _firstNameController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'First Name',
+                  ),
                 ),
-                child: const Text('Submit'),
-              )
-            ],
+                const SizedBox(
+                  height: 20,
+                ),
+                TextField(
+                  controller: _lastNameController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Last Name',
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextField(
+                  controller: _ageController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Age',
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextButton(
+                  onPressed: () {
+                    FocusScope.of(context).unfocus();
+                    uploadData();
+                  },
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.blue,
+                    disabledForegroundColor: Colors.grey.withOpacity(0.38),
+                    minimumSize: const Size(88, 36),
+                  ),
+                  child: const Text('Submit'),
+                )
+              ],
+            ),
           ),
         ),
       ),
