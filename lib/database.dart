@@ -16,4 +16,10 @@ class DatabaseMethods {
         .where('First Name', isEqualTo: name)
         .get();
   }
+
+  //this will return all the users
+
+  static Future<QuerySnapshot> getAllUsers() async {
+    return await FirebaseFirestore.instance.collection('users').get();
+  }
 }

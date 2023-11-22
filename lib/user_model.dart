@@ -5,6 +5,16 @@ class UserDetails {
 //constructor
   UserDetails(
       {required this.firstName, required this.lastName, required this.age});
+
+//initial data
+  factory UserDetails.initialData() {
+    return UserDetails(
+      firstName: '',
+      lastName: '',
+      age: '',
+    );
+  }
+
   //get data from firebase
   factory UserDetails.fromMap(Map<String, dynamic> map) {
     return UserDetails(

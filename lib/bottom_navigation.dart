@@ -1,5 +1,6 @@
 import 'package:firebase_flutter_crud/add_user.dart';
 import 'package:firebase_flutter_crud/read_data_display.dart';
+import 'package:firebase_flutter_crud/view_all_users.dart';
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatefulWidget {
@@ -14,6 +15,7 @@ class BottomBarState extends State<BottomBar> {
   static const List<Widget> _widgetOptions = <Widget>[
     AddUser(),
     ReadAndDisplayUserData(),
+    ViewAllUsers(),
   ];
 
   void _onItemTapped(int index) {
@@ -25,10 +27,7 @@ class BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _widgetOptions,
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -38,6 +37,10 @@ class BottomBarState extends State<BottomBar> {
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
             label: 'Search User',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: 'View All Users',
           ),
         ],
         currentIndex: _selectedIndex,

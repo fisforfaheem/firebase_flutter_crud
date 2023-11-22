@@ -15,9 +15,10 @@ class ReadAndDisplayUserData extends StatefulWidget {
 
 class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
   final TextEditingController nameController = TextEditingController();
-  String? name, lastName, age;
+  // String? name, lastName, age;
   bool isDataFound = false;
   bool isLoading = false;
+  UserDetails userDetails = UserDetails.initialData();
 
   Future<void> searchUser(String userName) async {
     setState(() => isLoading = true);
@@ -34,14 +35,11 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
       return;
     }
 
-    UserDetails userDetails =
+    userDetails =
         UserDetails.fromMap(value.docs[0].data() as Map<String, dynamic>);
     await Future.delayed(const Duration(milliseconds: 200));
 
     setState(() {
-      name = userDetails.firstName;
-      lastName = userDetails.lastName;
-      age = userDetails.age;
       isDataFound = true;
       isLoading = false;
     });
@@ -104,12 +102,15 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
                         UserInfoRow(
                             icon: Icons.person,
                             label: 'First Name',
-                            value: name),
+                            value: userDetails.firstName),
                         UserInfoRow(
                             icon: Icons.family_restroom,
                             label: 'Last Name',
-                            value: lastName),
-                        UserInfoRow(icon: Icons.cake, label: 'Age', value: age),
+                            value: userDetails.lastName),
+                        UserInfoRow(
+                            icon: Icons.cake,
+                            label: 'Age',
+                            value: userDetails.age),
                       ],
                     ),
         ],
