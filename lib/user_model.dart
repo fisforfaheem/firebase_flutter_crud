@@ -13,4 +13,12 @@ class UserDetails {
       age: map['Age'],
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'First Name': firstName,
+      'Last Name': lastName,
+      'Age': age,
+    };
+  }
 }

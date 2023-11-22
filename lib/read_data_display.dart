@@ -17,14 +17,18 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
   final TextEditingController nameController = TextEditingController();
   String? name, lastName, age;
   bool isDataFound = false;
+  bool isLoading = false;
 
   Future<void> searchUser(String userName) async {
+    setState(() => isLoading = true);
     QuerySnapshot value = await DatabaseMethods.getUserDetails(userName);
     print(value);
 
     if (value.docs.isEmpty) {
       Fluttertoast.showToast(msg: 'No User found');
       setState(() => isDataFound = false);
+      await Future.delayed(const Duration(milliseconds: 200));
+      setState(() => isLoading = false);
       return;
     }
 
@@ -36,6 +40,8 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
       lastName = userDetails.lastName;
       age = userDetails.age;
     });
+    await Future.delayed(const Duration(milliseconds: 200));
+    setState(() => isLoading = false);
   }
 
   @override
@@ -75,30 +81,35 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
             ),
           ),
           const SizedBox(height: 20),
-          isDataFound == false
-              ? const Text(
-                  'No data found',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          isLoading
+              ? const CircularProgressIndicator.adaptive(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
                 )
-              : Column(
-                  children: [
-                    Text(
-                      'First Name: $name',
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+              : isDataFound == false
+                  ? const Text(
+                      'No data found',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    )
+                  : Column(
+                      children: [
+                        Text(
+                          'First Name: $name',
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          'Last Name: $lastName',
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          'Age: $age',
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
-                    Text(
-                      'Last Name: $lastName',
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      'Age: $age',
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
         ],
       ),
     );

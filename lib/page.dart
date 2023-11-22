@@ -1,4 +1,7 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_flutter_crud/database.dart';
+import 'package:firebase_flutter_crud/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -18,7 +21,6 @@ class _HomeState extends State<Home> {
 
   @override
   void dispose() {
-    //controllers
     _firstNameController.dispose();
     _lastNameController.dispose();
     _ageController.dispose();
@@ -31,12 +33,16 @@ class _HomeState extends State<Home> {
   final TextEditingController _ageController = TextEditingController();
 
   uploadData() async {
-    Map<String, dynamic> uploadData = {
-      'First Name': _firstNameController.text,
-      'Last Name': _lastNameController.text,
-      'Age': _ageController.text,
-    };
-    await DatabaseMethods.addUserDetails(uploadData).then(
+    UserDetails userDetails = UserDetails(
+      firstName: _firstNameController.text,
+      lastName: _lastNameController.text,
+      age: _ageController.text,
+    );
+    print(
+      userDetails.toMap(),
+    );
+
+    await DatabaseMethods.addUserDetails(userDetails.toMap()).then(
         (value) => Fluttertoast.showToast(msg: 'Data uploaded successfully'));
     _firstNameController.clear();
     _lastNameController.clear();
