@@ -5,7 +5,7 @@ class UserDetails {
 //constructor
   UserDetails(
       {required this.firstName, required this.lastName, required this.age});
-  //this is factory constructor which will return the object of this class
+  //get data from firebase
   factory UserDetails.fromMap(Map<String, dynamic> map) {
     return UserDetails(
       firstName: map['First Name'],
@@ -14,6 +14,7 @@ class UserDetails {
     );
   }
 
+//upload  to firebase
   Map<String, dynamic> toMap() {
     return {
       'First Name': firstName,

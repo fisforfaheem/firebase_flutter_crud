@@ -28,7 +28,6 @@ class MainApp extends StatelessWidget {
           primary: Colors.grey[700]!,
           secondary: Colors.grey[600]!,
         ),
-        //make the app feel dark and gloomy
       ),
       home: const BottomBar(),
     );

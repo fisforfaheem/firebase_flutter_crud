@@ -27,6 +27,7 @@ class _AddUserState extends State<AddUser> {
     super.dispose();
   }
 
+  final formKey = GlobalKey<FormState>();
 //controllers
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -41,7 +42,7 @@ class _AddUserState extends State<AddUser> {
     print(
       userDetails.toMap(),
     );
-
+//uploading data to firebase
     await DatabaseMethods.addUserDetails(userDetails.toMap()).then(
         (value) => Fluttertoast.showToast(msg: 'Data uploaded successfully'));
     //clearing the text fields
@@ -58,6 +59,7 @@ class _AddUserState extends State<AddUser> {
         title: const Text('Add User Data'),
       ),
       body: Form(
+        key: formKey,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(
@@ -73,7 +75,13 @@ class _AddUserState extends State<AddUser> {
                 const SizedBox(
                   height: 20,
                 ),
-                TextField(
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
                   controller: _firstNameController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -83,7 +91,13 @@ class _AddUserState extends State<AddUser> {
                 const SizedBox(
                   height: 20,
                 ),
-                TextField(
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
                   controller: _lastNameController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -93,7 +107,13 @@ class _AddUserState extends State<AddUser> {
                 const SizedBox(
                   height: 20,
                 ),
-                TextField(
+                TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your age';
+                    }
+                    return null;
+                  },
                   controller: _ageController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -105,8 +125,10 @@ class _AddUserState extends State<AddUser> {
                 ),
                 TextButton(
                   onPressed: () {
-                    FocusScope.of(context).unfocus();
-                    uploadData();
+                    if (formKey.currentState!.validate()) {
+                      FocusScope.of(context).unfocus();
+                      uploadData();
+                    }
                   },
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.white,

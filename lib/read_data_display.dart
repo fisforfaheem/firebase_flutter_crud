@@ -28,8 +28,8 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
       Fluttertoast.showToast(msg: 'No User found');
       await Future.delayed(const Duration(milliseconds: 200));
       setState(() {
-        isDataFound = false;
         isLoading = false;
+        isDataFound = false;
       });
       return;
     }
@@ -39,10 +39,10 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
     await Future.delayed(const Duration(milliseconds: 200));
 
     setState(() {
-      isDataFound = true;
       name = userDetails.firstName;
       lastName = userDetails.lastName;
       age = userDetails.age;
+      isDataFound = true;
       isLoading = false;
     });
   }
