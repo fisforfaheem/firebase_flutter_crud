@@ -14,33 +14,28 @@ class ReadAndDisplayUserData extends StatefulWidget {
 }
 
 class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
-  //controller
   final TextEditingController nameController = TextEditingController();
   String? name, lastName, age;
   bool isDataFound = false;
-  searchUser(userName) async {
-    QuerySnapshot value =
-        await DatabaseMethods.getUserDetails(nameController.text);
-    print(value);
-    if (value.docs.isEmpty) {
-      Fluttertoast.showToast(
-        msg: 'No User found',
-      );
-      setState(() {
-        isDataFound = false;
-      });
 
+  Future<void> searchUser(String userName) async {
+    QuerySnapshot value = await DatabaseMethods.getUserDetails(userName);
+    print(value);
+
+    if (value.docs.isEmpty) {
+      Fluttertoast.showToast(msg: 'No User found');
+      setState(() => isDataFound = false);
       return;
-    } else {
-      UserDetails userDetails =
-          UserDetails.fromMap(value.docs[0].data() as Map<String, dynamic>);
-      setState(() {
-        isDataFound = true;
-        name = userDetails.firstName;
-        lastName = userDetails.lastName;
-        age = userDetails.age;
-      });
     }
+
+    UserDetails userDetails =
+        UserDetails.fromMap(value.docs[0].data() as Map<String, dynamic>);
+    setState(() {
+      isDataFound = true;
+      name = userDetails.firstName;
+      lastName = userDetails.lastName;
+      age = userDetails.age;
+    });
   }
 
   @override
@@ -49,34 +44,14 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
       appBar: AppBar(
         title: const Text('Firebase App'),
       ),
-      // body: StreamBuilder(
-      //   stream: FirebaseFirestore.instance.collection('users').snapshots(),
-      //   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-      //     if (snapshot.hasData) {
-      //       return ListView.builder(
-      //         itemCount: snapshot.data?.docs.length,
-      //         itemBuilder: (BuildContext context, int index) {
-      //           return ListTile(
-      //             title: Text(snapshot.data?.docs[index]['First Name']),
-      //             subtitle: Text(snapshot.data?.docs[index]['Last Name']),
-      //             trailing: Text(snapshot.data?.docs[index]['Age']),
-      //           );
-      //         },
-      //       );
-      //     } else {
-      //       return const Center(
-      //         child: CircularProgressIndicator(),
-      //       );
-      //     }
-      //   },
-      // ),
       body: Column(
         children: [
           const Center(
-              child: Text(
-            'Write User Name',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          )),
+            child: Text(
+              'Write User Name',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(25.0),
             child: TextFormField(
@@ -89,9 +64,7 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
           ),
           Center(
             child: TextButton(
-              onPressed: () {
-                searchUser(nameController.text);
-              },
+              onPressed: () => searchUser(nameController.text),
               style: TextButton.styleFrom(
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.blue,
@@ -101,14 +74,12 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
               child: const Text('Submit'),
             ),
           ),
-
-          //UI to display the data,
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           isDataFound == false
-              ? const Text('No data found',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
+              ? const Text(
+                  'No data found',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                )
               : Column(
                   children: [
                     Text(
