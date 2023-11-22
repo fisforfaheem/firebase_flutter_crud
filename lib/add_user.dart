@@ -5,14 +5,14 @@ import 'package:firebase_flutter_crud/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class AddUser extends StatefulWidget {
+  const AddUser({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<AddUser> createState() => _AddUserState();
 }
 
-class _HomeState extends State<Home> {
+class _AddUserState extends State<AddUser> {
 //init
   @override
   void initState() {
@@ -44,10 +44,10 @@ class _HomeState extends State<Home> {
 
     await DatabaseMethods.addUserDetails(userDetails.toMap()).then(
         (value) => Fluttertoast.showToast(msg: 'Data uploaded successfully'));
+    //clearing the text fields
     _firstNameController.clear();
     _lastNameController.clear();
     _ageController.clear();
-    dispose();
   }
 
   @override
@@ -84,6 +84,7 @@ class _HomeState extends State<Home> {
               ),
               ElevatedButton(
                 onPressed: () {
+                  FocusScope.of(context).unfocus();
                   uploadData();
                 },
                 child: const Text('Submit'),
