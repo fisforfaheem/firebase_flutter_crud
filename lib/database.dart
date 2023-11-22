@@ -13,13 +13,13 @@ class DatabaseMethods {
   static Future<QuerySnapshot> getUserDetails(String name) async {
     return await FirebaseFirestore.instance
         .collection('users')
-        .where('First Name', isEqualTo: name)
+        .where('Name', isEqualTo: name)
         .get();
   }
 
   //this will return all the users
 
-  static Future<QuerySnapshot> getAllUsers() async {
+  static Future<QuerySnapshot> fetchAllUsers() async {
     return await FirebaseFirestore.instance.collection('users').get();
   }
 }

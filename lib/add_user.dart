@@ -35,9 +35,9 @@ class _AddUserState extends State<AddUser> {
 
   uploadData() async {
     UserDetails userDetails = UserDetails(
-      firstName: _firstNameController.text,
-      lastName: _lastNameController.text,
-      age: _ageController.text,
+      name: _firstNameController.text,
+      phone: _lastNameController.text,
+      email: _ageController.text,
     );
     print(
       userDetails.toMap(),
@@ -85,7 +85,7 @@ class _AddUserState extends State<AddUser> {
                   controller: _firstNameController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'First Name',
+                    labelText: 'Name',
                   ),
                 ),
                 const SizedBox(
@@ -101,7 +101,7 @@ class _AddUserState extends State<AddUser> {
                   controller: _lastNameController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Last Name',
+                    labelText: 'Phone',
                   ),
                 ),
                 const SizedBox(
@@ -110,14 +110,14 @@ class _AddUserState extends State<AddUser> {
                 TextFormField(
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please enter your age';
+                      return 'Please enter your Email';
                     }
                     return null;
                   },
                   controller: _ageController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Age',
+                    labelText: 'Email',
                   ),
                 ),
                 const SizedBox(

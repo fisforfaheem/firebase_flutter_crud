@@ -15,7 +15,7 @@ class ReadAndDisplayUserData extends StatefulWidget {
 
 class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
   final TextEditingController nameController = TextEditingController();
-  // String? name, lastName, age;
+  // String? name, lastName, Email;
   bool isDataFound = false;
   bool isLoading = false;
   UserDetails userDetails = UserDetails.initialData();
@@ -101,16 +101,16 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
                       children: [
                         UserInfoRow(
                             icon: Icons.person,
-                            label: 'First Name',
-                            value: userDetails.firstName),
+                            label: 'Name',
+                            value: userDetails.name),
                         UserInfoRow(
                             icon: Icons.family_restroom,
-                            label: 'Last Name',
-                            value: userDetails.lastName),
+                            label: 'Phone',
+                            value: userDetails.phone),
                         UserInfoRow(
                             icon: Icons.cake,
-                            label: 'Age',
-                            value: userDetails.age),
+                            label: 'Email',
+                            value: userDetails.email),
                       ],
                     ),
         ],
