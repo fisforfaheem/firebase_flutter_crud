@@ -26,35 +26,39 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
 
     if (value.docs.isEmpty) {
       Fluttertoast.showToast(msg: 'No User found');
-      setState(() => isDataFound = false);
       await Future.delayed(const Duration(milliseconds: 200));
-      setState(() => isLoading = false);
+      setState(() {
+        isDataFound = false;
+        isLoading = false;
+      });
       return;
     }
 
     UserDetails userDetails =
         UserDetails.fromMap(value.docs[0].data() as Map<String, dynamic>);
+    await Future.delayed(const Duration(milliseconds: 200));
+
     setState(() {
       isDataFound = true;
       name = userDetails.firstName;
       lastName = userDetails.lastName;
       age = userDetails.age;
+      isLoading = false;
     });
-    await Future.delayed(const Duration(milliseconds: 200));
-    setState(() => isLoading = false);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Firebase App'),
+        title: const Text('Search User Data'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Center(
             child: Text(
-              'Write User Name',
+              'Type the name to search the User',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
@@ -70,7 +74,10 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
           ),
           Center(
             child: TextButton(
-              onPressed: () => searchUser(nameController.text),
+              onPressed: () {
+                searchUser(nameController.text);
+                FocusScope.of(context).unfocus();
+              },
               style: TextButton.styleFrom(
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.blue,
@@ -93,25 +100,47 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
                     )
                   : Column(
                       children: [
-                        Text(
-                          'First Name: $name',
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'Last Name: $lastName',
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'Age: $age',
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
+                        UserInfoRow(
+                            icon: Icons.person,
+                            label: 'First Name',
+                            value: name),
+                        UserInfoRow(
+                            icon: Icons.family_restroom,
+                            label: 'Last Name',
+                            value: lastName),
+                        UserInfoRow(icon: Icons.cake, label: 'Age', value: age),
                       ],
                     ),
         ],
       ),
+    );
+  }
+}
+
+class UserInfoRow extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String? value;
+
+  const UserInfoRow({
+    Key? key,
+    required this.icon,
+    required this.label,
+    this.value,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(icon, color: Colors.blue),
+        const SizedBox(width: 8),
+        Text(
+          '$label: $value',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+      ],
     );
   }
 }
