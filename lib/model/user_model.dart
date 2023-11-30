@@ -1,13 +1,14 @@
 //user model
 //this is model class for user details
-class UserDetails {
-  final String? name, phone, email;
+class User {
+  final String? name, phone, email, id;
 //constructor
-  UserDetails({required this.name, required this.phone, required this.email});
+  User({this.id, required this.name, required this.phone, required this.email});
 
 //initial data
-  factory UserDetails.initialData() {
-    return UserDetails(
+  factory User.initialData() {
+    return User(
+      id: '',
       name: '',
       phone: '',
       email: '',
@@ -15,8 +16,9 @@ class UserDetails {
   }
 
   //get data from firebase
-  factory UserDetails.fromMap(Map<String, dynamic> map) {
-    return UserDetails(
+  factory User.fromMap(Map<String, dynamic> map) {
+    return User(
+      id: map['id'],
       name: map['Name'],
       phone: map['Phone'],
       email: map['Email'],
@@ -26,6 +28,7 @@ class UserDetails {
 //upload  to firebase
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'Name': name,
       'Phone': phone,
       'Email': email,

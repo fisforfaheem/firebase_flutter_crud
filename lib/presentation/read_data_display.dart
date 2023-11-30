@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_flutter_crud/database.dart';
-import 'package:firebase_flutter_crud/user_model.dart';
+import 'package:firebase_flutter_crud/database_methods.dart';
+import 'package:firebase_flutter_crud/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -18,7 +18,7 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
   // String? name, lastName, Email;
   bool isDataFound = false;
   bool isLoading = false;
-  UserDetails userDetails = UserDetails.initialData();
+  User userDetails = User.initialData();
 
   Future<void> searchUser(String userName) async {
     setState(() => isLoading = true);
@@ -35,8 +35,7 @@ class _ReadAndDisplayUserDataState extends State<ReadAndDisplayUserData> {
       return;
     }
 
-    userDetails =
-        UserDetails.fromMap(value.docs[0].data() as Map<String, dynamic>);
+    userDetails = User.fromMap(value.docs[0].data() as Map<String, dynamic>);
     await Future.delayed(const Duration(milliseconds: 200));
 
     setState(() {

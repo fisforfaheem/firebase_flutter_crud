@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
-import 'package:firebase_flutter_crud/database.dart';
-import 'package:firebase_flutter_crud/user_model.dart';
+import 'package:firebase_flutter_crud/database_methods.dart';
+import 'package:firebase_flutter_crud/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -34,7 +34,7 @@ class _AddUserState extends State<AddUser> {
   final TextEditingController _ageController = TextEditingController();
 
   uploadData() async {
-    UserDetails userDetails = UserDetails(
+    User userDetails = User(
       name: _firstNameController.text,
       phone: _lastNameController.text,
       email: _ageController.text,

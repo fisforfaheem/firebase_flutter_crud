@@ -1,6 +1,6 @@
-import 'package:firebase_flutter_crud/add_user.dart';
-import 'package:firebase_flutter_crud/read_data_display.dart';
-import 'package:firebase_flutter_crud/view_all_users.dart';
+import 'package:firebase_flutter_crud/presentation/add_user.dart';
+import 'package:firebase_flutter_crud/presentation/read_data_display.dart';
+import 'package:firebase_flutter_crud/presentation/view_all_users.dart';
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatefulWidget {
